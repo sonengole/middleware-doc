@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sbs.kyudo</groupId>
-	<artifactId>sbs-middleware-kyudodoc-rest-api</artifactId>
+	<artifactId>middlewaredoc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sbs-middleware-kyudodoc-rest-api</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Kyudo middleware api</description>
 	<url/>
 	<licenses>
 		<license/>

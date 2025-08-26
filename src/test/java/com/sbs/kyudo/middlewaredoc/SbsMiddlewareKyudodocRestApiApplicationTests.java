@@ -1,4 +1,4 @@
-package com.sbs.kyudo.sbs_middleware_kyudodoc_rest_api;
+package com.sbs.kyudo.middlewaredoc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
