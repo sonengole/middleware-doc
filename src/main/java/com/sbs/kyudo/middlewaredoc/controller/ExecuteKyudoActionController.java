@@ -1,5 +1,6 @@
 package com.sbs.kyudo.middlewaredoc.controller;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +24,9 @@ import com.sbs.kyudo.middlewaredoc.externalservice.caller.impl.KyudoActionExecut
 @RequestMapping("/api/execute")
 public class ExecuteKyudoActionController {
 	
-	private final ExternalSoapApiCaller externalSoapApiCaller;
+	private ExternalSoapApiCaller externalSoapApiCaller;
 	
-	public ExecuteKyudoActionController(ExternalSoapApiCaller externalSoapApiCaller ) {
+	public ExecuteKyudoActionController(@Qualifier("kyudoActionExecutionApiCaller") ExternalSoapApiCaller externalSoapApiCaller ) {
 		this.externalSoapApiCaller = externalSoapApiCaller;
 	}
 	
@@ -33,8 +34,8 @@ public class ExecuteKyudoActionController {
 	public ResponseEntity<ExecuteKyudoActionResponse> triggerCBSSoapCall(){
 		ExecuteKyudoActionRequest kyudoActionRequest = new ExecuteKyudoActionRequest();
 		ExecuteKyudoActionResponse kyudoActionResponse = new ExecuteKyudoActionResponse();
-		ExternalSoapApiCaller kyudoActionExecutionApiCaller = new KyudoActionExecutionApiCaller();
-		kyudoActionResponse = kyudoActionExecutionApiCaller.callExternalSoapApi(kyudoActionRequest);
+		//ExternalSoapApiCaller kyudoActionExecutionApiCaller = new KyudoActionExecutionApiCaller();
+		kyudoActionResponse = externalSoapApiCaller.callExternalSoapApi(kyudoActionRequest);
 		
 		return ResponseEntity.ok(kyudoActionResponse);
 	}

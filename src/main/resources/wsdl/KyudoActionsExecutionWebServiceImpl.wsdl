@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.c-w.be/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="KyudoActionsExecutionWS" targetNamespace="http://ws.c-w.be/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.c-w.be/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ws.c-w.be/" version="1.0">
+  <xs:element name="CWConditionalErrors" type="tns:CWConditionalErrors"/>
+  <xs:element name="CWErrorInfo" type="tns:CWErrorInfo"/>
+  <xs:element name="CWFault" type="tns:CWFaultInfo"/>
+  <xs:element name="CWRMFault" type="tns:CWRMFaultInfo"/>
+  <xs:element name="CWTechnicalFault" type="tns:CWTechnicalFaultInfo"/>
+  <xs:element name="details" type="tns:CWDetails"/>
+  <xs:element name="executeKyudoAction" type="tns:executeKyudoAction"/>
+  <xs:element name="executeKyudoActionResponse" type="tns:executeKyudoActionResponse"/>
+  <xs:complexType name="executeKyudoAction">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="ExecuteKyudoActionIn" type="tns:executeKyudoActionInRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="executeKyudoActionInRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:cwMessageIn">
+        <xs:sequence>
+          <xs:element form="qualified" minOccurs="0" name="agentUnumber" type="xs:string"/>
+          <xs:element form="qualified" minOccurs="0" name="callMode" type="xs:string"/>
+          <xs:element form="qualified" minOccurs="0" name="clientNumber" type="xs:string"/>
+          <xs:element form="qualified" minOccurs="0" name="natureOfOperationKyudo" type="xs:string"/>
+          <xs:element form="qualified" minOccurs="0" name="operationReferenceKyudo" type="xs:string"/>
+          <xs:element form="qualified" minOccurs="0" name="sessionReferenceKyudo" type="xs:string"/>
+          <xs:element form="qualified" minOccurs="0" name="tpNameKyudo" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="cwMessageIn">
+    <xs:complexContent>
+      <xs:extension base="tns:cwMessage">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="cwMessage">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="cwSecurity">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="CWAccessKey" type="xs:string"/>
+      <xs:element form="qualified" name="CWUser" type="xs:string"/>
+      <xs:element form="qualified" name="CWPassword" type="xs:string"/>
+      <xs:element default="B2O" form="qualified" name="CWChannel" type="xs:string"/>
+      <xs:element default="1" form="qualified" minOccurs="0" name="CWCompany" type="xs:string"/>
+      <xs:element default="EN" form="qualified" minOccurs="0" name="CWLanguage" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="CWExternalUser" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="cwReliability">
+    <xs:sequence>
+      <xs:element form="qualified" name="CWExternalApplication" type="xs:string"/>
+      <xs:element form="qualified" name="CWExternalReference" type="xs:string"/>
+      <xs:element default="false" form="qualified" name="CWCancellationSwitch" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="cwContext">
+    <xs:sequence>
+      <xs:element default="false" form="qualified" name="CWNewUpdateReference" type="xs:boolean"/>
+      <xs:element form="qualified" minOccurs="0" name="CWUpdateReference" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="executeKyudoActionResponse">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="ExecuteKyudoActionOut" type="tns:executeKyudoActionOutRespons"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="executeKyudoActionOutRespons">
+    <xs:complexContent>
+      <xs:extension base="tns:cwMessageOut">
+        <xs:sequence>
+          <xs:element form="qualified" minOccurs="0" name="primaryReturnCode" type="xs:string"/>
+          <xs:element form="qualified" minOccurs="0" name="secondaryReturnCode" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="cwMessageOut">
+    <xs:complexContent>
+      <xs:extension base="tns:cwSimpleMessageOut">
+        <xs:sequence>
+          <xs:element form="qualified" minOccurs="0" name="CWWarnings" type="tns:cwWarnings"/>
+          <xs:element minOccurs="0" ref="tns:CWConditionalErrors"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="cwSimpleMessageOut">
+    <xs:complexContent>
+      <xs:extension base="tns:cwMessage">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="cwWarnings">
+    <xs:sequence>
+      <xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="CWWarning" type="tns:cwWarning"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cwWarning">
+    <xs:sequence>
+      <xs:element form="qualified" name="fieldName" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="comment" type="xs:string"/>
+      <xs:element form="qualified" name="errorMessage" type="xs:string"/>
+      <xs:element form="qualified" name="errorMessageId" type="xs:string"/>
+      <xs:element minOccurs="0" ref="tns:details"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CWDetails">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:CWErrorInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CWErrorInfo">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="errorMessageId" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="errorMessage" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="program" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="returnCode" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="secondaryReturnCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CWConditionalErrors">
+    <xs:sequence>
+      <xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="CWConditionalError" type="tns:CWFaultInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CWFaultInfo">
+    <xs:sequence>
+      <xs:element form="qualified" name="errorMessageId" type="xs:string"/>
+      <xs:element form="qualified" name="errorMessage" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="comment" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="fieldError" type="xs:string"/>
+      <xs:element minOccurs="0" ref="tns:details"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="cwReliabilityOut">
+    <xs:sequence>
+      <xs:element form="qualified" name="CWOperationStatus" type="xs:int"/>
+      <xs:element form="qualified" minOccurs="0" name="CWExternalApplication" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="CWExternalReference" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CWRMFaultInfo">
+    <xs:sequence>
+      <xs:element form="qualified" name="errorMessageId" type="xs:string"/>
+      <xs:element form="qualified" name="errorMessage" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="comment" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="fieldError" type="xs:string"/>
+      <xs:element form="qualified" name="operationStatus" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CWTechnicalFaultInfo">
+    <xs:sequence>
+      <xs:element form="qualified" name="errorMessageId" type="xs:string"/>
+      <xs:element form="qualified" name="errorMessage" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="comment" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="fieldError" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CWSecurity" nillable="true" type="tns:cwSecurity"/>
+  <xs:element name="CWReliability" nillable="true" type="tns:cwReliability"/>
+  <xs:element name="CWContext" nillable="true" type="tns:cwContext"/>
+  <xs:element name="CWReliabilityOut" nillable="true" type="tns:cwReliabilityOut"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="CWWebFaultException">
+    <wsdl:part element="tns:CWFault" name="CWWebFaultException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="executeKyudoActionResponse">
+    <wsdl:part element="tns:executeKyudoActionResponse" name="result">
+    </wsdl:part>
+    <wsdl:part element="tns:CWReliabilityOut" name="CWReliabilityOut">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CWReliabilityTechnicalWebFaultException">
+    <wsdl:part element="tns:CWRMFault" name="CWReliabilityTechnicalWebFaultException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="executeKyudoAction">
+    <wsdl:part element="tns:executeKyudoAction" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:CWSecurity" name="CWSecurity">
+    </wsdl:part>
+    <wsdl:part element="tns:CWReliability" name="CWReliability">
+    </wsdl:part>
+    <wsdl:part element="tns:CWContext" name="CWContext">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CWTechnicalWebFaultException">
+    <wsdl:part element="tns:CWTechnicalFault" name="CWTechnicalWebFaultException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="KyudoActionsExecutionWSPortType">
+    <wsdl:operation name="executeKyudoAction">
+      <wsdl:input message="tns:executeKyudoAction" name="executeKyudoAction">
+    </wsdl:input>
+      <wsdl:output message="tns:executeKyudoActionResponse" name="executeKyudoActionResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:CWTechnicalWebFaultException" name="CWTechnicalWebFaultException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CWReliabilityTechnicalWebFaultException" name="CWReliabilityTechnicalWebFaultException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CWWebFaultException" name="CWWebFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="KyudoActionsExecutionWSSoapBinding" type="tns:KyudoActionsExecutionWSPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="executeKyudoAction">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="executeKyudoAction">
+        <soap:header message="tns:executeKyudoAction" part="CWSecurity" use="literal">
+        </soap:header>
+        <soap:header message="tns:executeKyudoAction" part="CWReliability" use="literal">
+        </soap:header>
+        <soap:header message="tns:executeKyudoAction" part="CWContext" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="executeKyudoActionResponse">
+        <soap:header message="tns:executeKyudoActionResponse" part="CWReliabilityOut" use="literal">
+        </soap:header>
+        <soap:body parts="result" use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CWTechnicalWebFaultException">
+        <soap:fault name="CWTechnicalWebFaultException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="CWReliabilityTechnicalWebFaultException">
+        <soap:fault name="CWReliabilityTechnicalWebFaultException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="CWWebFaultException">
+        <soap:fault name="CWWebFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="KyudoActionsExecutionWS">
+    <wsdl:port binding="tns:KyudoActionsExecutionWSSoapBinding" name="KyudoActionsExecutionWSPortType">
+      <soap:address location="http://hn5518.crelan.be:40180/cwsoft-webservices-service-SNAPSHOT/KyudoActionsExecutionWS/KyudoActionsExecutionWebServiceImpl"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

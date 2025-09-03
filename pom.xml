@@ -49,17 +49,39 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-<dependency>
-    <groupId>org.apache.httpcomponents</groupId>
-    <artifactId>httpclient</artifactId>
-    <version>4.5.14</version>
-</dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
 <!-- https://mvnrepository.com/artifact/org.json/json -->
-<dependency>
-    <groupId>org.json</groupId>
-    <artifactId>json</artifactId>
-    <version>20250517</version>
-</dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20250517</version>
+        </dependency>
+    <!-- JAXB API -->
+    <dependency>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+    </dependency>
+
+    <!-- JAXB Runtime (needed for marshalling/unmarshalling) -->
+    <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+    </dependency>
+    <!-- Jakarta JAX-WS API -->
+    <dependency>
+        <groupId>jakarta.xml.ws</groupId>
+        <artifactId>jakarta.xml.ws-api</artifactId>
+    </dependency>
+    <!-- Metro JAX-WS runtime -->
+    <dependency>
+        <groupId>com.sun.xml.ws</groupId>
+        <artifactId>jaxws-rt</artifactId>
+        <version>3.0.2</version>
+    </dependency>
 	</dependencies>
 
 	<build>
@@ -68,6 +90,28 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- tag::wsdl[] -->
+			<plugin>
+				<groupId>com.sun.xml.ws</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+					   <id>wsimport</id>
+					   <phase>generate-sources</phase>
+					   <goals>
+					     <goal>wsimport</goal>
+					   </goals>
+					   <configuration>
+					   	   <wsdlFiles>
+						       <wsdlFile>${project.basedir}/src/main/resources/wsdl/KyudoActionsExecutionWebServiceImpl.wsdl</wsdlFile>
+					       </wsdlFiles>
+					       <packageName>com.sbs.kyudo.middlewaredoc.wsdl</packageName>
+				       </configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- end::wsdl[] -->
 		</plugins>
 	</build>
 
