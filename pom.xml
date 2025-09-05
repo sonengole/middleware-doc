@@ -82,6 +82,12 @@
         <artifactId>jaxws-rt</artifactId>
         <version>3.0.2</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework.ws/spring-ws-core -->
+    <dependency>
+        <groupId>org.springframework.ws</groupId>
+        <artifactId>spring-ws-core</artifactId>
+    </dependency>
+
 	</dependencies>
 
 	<build>
@@ -97,7 +103,7 @@
 				<version>3.0.0</version>
 				<executions>
 					<execution>
-					   <id>wsimport</id>
+					   <id>wsimport-soap1</id>
 					   <phase>generate-sources</phase>
 					   <goals>
 					     <goal>wsimport</goal>
@@ -109,9 +115,41 @@
 					       <packageName>com.sbs.kyudo.middlewaredoc.wsdl</packageName>
 				       </configuration>
 					</execution>
+					<execution>
+					   <id>wsimport-soap2</id>
+					   <phase>generate-sources</phase>
+					   <goals>
+					     <goal>wsimport</goal>
+					   </goals>
+					   <configuration>
+					   	   <wsdlFiles>
+						       <wsdlFile>${project.basedir}/src/main/resources/wsdl/exampleSone.wsdl</wsdlFile>
+					       </wsdlFiles>
+					       <packageName>com.sbs.kyudo.middlewaredoc.example1</packageName>
+				       </configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<!-- end::wsdl[] -->
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                
+                <executions>
+                    <execution>
+                       <id>add-source</id>
+                       <phase>generate-sources</phase>
+                       <goals>
+                          <goal>add-source</goal>
+                       </goals>
+                       <configuration>
+                             <sources>
+                                 <source>${project.build.directory}/generated-sources/wsimport</source>
+                             </sources>
+                       </configuration>
+                    </execution>
+                 </executions>
+            </plugin>
 		</plugins>
 	</build>
 
