@@ -122,6 +122,7 @@
 						       <wsdlFile>${project.basedir}/src/main/resources/wsdl/KyudoActionsExecutionWebServiceImpl.wsdl</wsdlFile>
 					       </wsdlFiles>
 					       <packageName>com.sbs.kyudo.middlewaredoc.wsdl</packageName>
+					       <extention>true</extention>
 				       </configuration>
 					</execution>
 					<execution>
@@ -135,6 +136,7 @@
 						       <wsdlFile>${project.basedir}/src/main/resources/wsdl/exampleSone.wsdl</wsdlFile>
 					       </wsdlFiles>
 					       <packageName>com.sbs.kyudo.middlewaredoc.example1</packageName>
+					       <extension>true</extension>
 				       </configuration>
 					</execution>
 				</executions>

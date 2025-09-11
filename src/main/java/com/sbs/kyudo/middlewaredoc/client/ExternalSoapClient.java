@@ -23,6 +23,7 @@ import com.sbs.kyudo.middlewaredoc.wsdl.CwSecurity;
 import com.sbs.kyudo.middlewaredoc.wsdl.ExecuteKyudoAction;
 import com.sbs.kyudo.middlewaredoc.wsdl.ExecuteKyudoActionInRequest;
 import com.sbs.kyudo.middlewaredoc.wsdl.ExecuteKyudoActionResponse;
+import com.sbs.kyudo.middlewaredoc.wsdl.ObjectFactory;
 
 import jakarta.xml.bind.JAXBElement;
 
@@ -92,8 +93,25 @@ public class ExternalSoapClient extends WebServiceGatewaySupport {
 
   public ExecuteKyudoActionResponse executeKyudoAction(ExecuteKyudoActionInRequest request) {
 
-    log.info("Soap request: agentUnumber : " );
+    log.info("Soap Client-  request: agentUnumber : " + request.getAgentUnumber());
+    log.info("Soap Client-  request: callMode : " + request.getCallMode());
+    log.info("Soap Client-  request: clientNumber : " + request.getClientNumber());
+    log.info("Soap Client-  request: natureOfOperationKyudo : " + request.getNatureOfOperationKyudo());
+    log.info("Soap Client-  request: sessionReferenceKyudo : " + request.getSessionReferenceKyudo());
     ExecuteKyudoAction requestWrapper = new ExecuteKyudoAction();
+    ObjectFactory factory = new ObjectFactory();
+    
+    ExecuteKyudoActionInRequest requestIn = new ExecuteKyudoActionInRequest();
+    requestIn.setAgentUnumber(request.getAgentUnumber());
+    requestIn.setCallMode(request.getCallMode());
+    requestIn.setClientNumber(request.getClientNumber());
+    requestIn.setNatureOfOperationKyudo(request.getNatureOfOperationKyudo());
+    requestIn.setOperationReferenceKyudo(request.getOperationReferenceKyudo());
+    requestIn.setSessionReferenceKyudo(request.getSessionReferenceKyudo());
+    requestIn.setTpNameKyudo(request.getTpNameKyudo());
+    
+   
+   
 /*    ExecuteKyudoActionInRequest request = new ExecuteKyudoActionInRequest();
     request.setAgentUnumber(agentUnumber);
     request.setCallMode(callMode);
@@ -102,7 +120,11 @@ public class ExternalSoapClient extends WebServiceGatewaySupport {
     request.setOperationReferenceKyudo(operationReferenceKyudo);
     request.setSessionReferenceKyudo(sessionReferenceKyudo);
     request.setTpNameKyudo(tpNameKyudo);*/
+    
     requestWrapper.setExecuteKyudoActionIn(request);
+    JAXBElement<ExecuteKyudoAction> requestWrapperJaxb =
+    	    factory.createExecuteKyudoAction(requestWrapper);
+    
     
     CwSecurity security = new CwSecurity();
     security.setCWUser(cwUser);
@@ -110,25 +132,27 @@ public class ExternalSoapClient extends WebServiceGatewaySupport {
     security.setCWChannel(cwChannel);
     security.setCWCompany(cwCompany);
     security.setCWLanguage(cwLanguage);
+    JAXBElement<CwSecurity> securityJaxb = factory.createCWSecurity(security);
     
     CwReliability reliability = new CwReliability();
     reliability.setCWCancellationSwitch(false);
-    
+    JAXBElement<CwReliability> reliabilityJaxb = factory.createCWReliability(reliability);
     
     CwContext context = new CwContext();
     context.setCWNewUpdateReference(false);
+    JAXBElement<CwContext> contextJaxb = factory.createCWContext(context);
     
     
     try {
         ExecuteKyudoActionResponse response = (ExecuteKyudoActionResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(
                 		kyudoActionExecutionSoapURI,
-                		requestWrapper,
+                		requestWrapperJaxb,
                         message -> {
                             SoapHeader header = ((SoapMessage) message).getSoapHeader();
-                            getMarshaller().marshal(security, header.getResult());
-                            getMarshaller().marshal(reliability, header.getResult());
-                            getMarshaller().marshal(context, header.getResult());
+                            getMarshaller().marshal(securityJaxb, header.getResult());
+                            getMarshaller().marshal(reliabilityJaxb, header.getResult());
+                            getMarshaller().marshal(contextJaxb, header.getResult());
                         });
 
             return response;
