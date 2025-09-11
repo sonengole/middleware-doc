@@ -9,6 +9,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class CrelanKeycloakTokenReteieverKyudo {
@@ -57,14 +58,50 @@ public class CrelanKeycloakTokenReteieverKyudo {
 
             String fullStringToken = result.toString();
             //System.out.println("ATSAFE-DEBUG -CrelanKeycloakTokenReteieverKyudo-------> full string token is : -->" + fullStringToken);
-            JSONObject tokenJson = new JSONObject(fullStringToken);
+            JSONObject tokenJson = null;
+			try {
+				tokenJson = new JSONObject(fullStringToken);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             System.out.println("ATSAFE-DEBUG -CrelanKeycloakTokenReteieverKyudo-------> full string token is AFTER ");
-            newToken.setAccessToken(tokenJson.getString("access_token"));
-            newToken.setExpiresIn(tokenJson.get("expires_in").toString());
-            newToken.setNotBeforePolicy(tokenJson.get("not-before-policy").toString());
-            newToken.setRefreshExpiresIn(tokenJson.get("refresh_expires_in").toString());
-            newToken.setScope(tokenJson.getString("scope"));
-            newToken.setTokenType(tokenJson.getString("token_type"));
+            try {
+				newToken.setAccessToken(tokenJson.getString("access_token"));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				newToken.setExpiresIn(tokenJson.get("expires_in").toString());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				newToken.setNotBeforePolicy(tokenJson.get("not-before-policy").toString());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				newToken.setRefreshExpiresIn(tokenJson.get("refresh_expires_in").toString());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				newToken.setScope(tokenJson.getString("scope"));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				newToken.setTokenType(tokenJson.getString("token_type"));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             
             
             System.out.println("CrelanKeycloakTokenReteieverKyudo -------> expires_in is  : -->" + newToken.getExpiresIn());

@@ -1,7 +1,11 @@
 package com.sbs.kyudo.middlewaredoc.token;
 import java.util.Date;
-public enum CrelanKeycloakTokenManagerKyudo {
-	INSTANCE;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class CrelanKeycloakTokenManagerKyudo {
+	//INSTANCE;
 	private volatile CrelanKeycloakToken crelanKeycloakToken;
 	private CrelanKeycloakTokenReteieverKyudo crelanKeycloakTokenReteieverKyudo = new CrelanKeycloakTokenReteieverKyudo();
     private volatile Date tokenExpirationDate = new Date();
@@ -10,13 +14,13 @@ public enum CrelanKeycloakTokenManagerKyudo {
     public static final int REFRESH_THRESHOLD = 2000;
 	//public static final int REFRESH_THRESHOLD = Integer.parseInt(KyudoProperties.get("ATSrefreshTokenThreshold", "2000"));
 	
-	private CrelanKeycloakTokenManagerKyudo(){
-		crelanKeycloakToken = null;
-	}
+	//private CrelanKeycloakTokenManagerKyudo(){
+	//	crelanKeycloakToken = null;
+	//}
 	
-	public static CrelanKeycloakTokenManagerKyudo getInstance(){
-		return INSTANCE;
-	}
+	//public static CrelanKeycloakTokenManagerKyudo getInstance(){
+	//	return INSTANCE;
+	//}
 	
 	public CrelanKeycloakToken getAccessToken() {
 		System.out.println("CrelanKeycloakTokenManagerKyudo ---> in getaccesstoken");

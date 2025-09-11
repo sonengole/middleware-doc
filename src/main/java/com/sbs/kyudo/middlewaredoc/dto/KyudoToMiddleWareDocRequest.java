@@ -2,7 +2,7 @@ package com.sbs.kyudo.middlewaredoc.dto;
 
 import java.util.Date;
 
-public class KyudoDocRequest {
+public class KyudoToMiddleWareDocRequest {
 	  private String appCod;
 	  
 	  private String batchMode;
@@ -51,8 +51,113 @@ public class KyudoDocRequest {
 	  
 	  private Date expirationDate;
 	  
+	  private String DocumentBase64;
+	  
+	  private String callMode;
+	  
+	  private String agentUnumber;
+	  
+	  private String clientNumber;
+	  
+	  private String natureOfOperationKyudo;
+		
+	  private String operationReferenceKyudo;
+		
+	  private String sessionReferenceKyudo;
+		
+	  public String getCallMode() {
+		return callMode;
+	}
 
-	public KyudoDocRequest(String appCod, String batchMode, String cpyCod, String externalbankingOpRef,
+	public void setCallMode(String callMode) {
+		this.callMode = callMode;
+	}
+
+	public String getAgentUnumber() {
+		return agentUnumber;
+	}
+
+	public void setAgentUnumber(String agentUnumber) {
+		this.agentUnumber = agentUnumber;
+	}
+
+	public String getClientNumber() {
+		return clientNumber;
+	}
+
+	public void setClientNumber(String clientNumber) {
+		this.clientNumber = clientNumber;
+	}
+
+	public String getNatureOfOperationKyudo() {
+		return natureOfOperationKyudo;
+	}
+
+	public void setNatureOfOperationKyudo(String natureOfOperationKyudo) {
+		this.natureOfOperationKyudo = natureOfOperationKyudo;
+	}
+
+	public String getOperationReferenceKyudo() {
+		return operationReferenceKyudo;
+	}
+
+	public void setOperationReferenceKyudo(String operationReferenceKyudo) {
+		this.operationReferenceKyudo = operationReferenceKyudo;
+	}
+
+	public String getSessionReferenceKyudo() {
+		return sessionReferenceKyudo;
+	}
+
+	public void setSessionReferenceKyudo(String sessionReferenceKyudo) {
+		this.sessionReferenceKyudo = sessionReferenceKyudo;
+	}
+
+	public String getDocumentBase64Pdf() {
+		return DocumentBase64Pdf;
+	}
+
+	public void setDocumentBase64Pdf(String documentBase64Pdf) {
+		DocumentBase64Pdf = documentBase64Pdf;
+	}
+
+	public String getThirdPartyNumber() {
+		return thirdPartyNumber;
+	}
+
+	public void setThirdPartyNumber(String thirdPartyNumber) {
+		this.thirdPartyNumber = thirdPartyNumber;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	private String DocumentBase64Pdf;
+	  
+	  private String thirdPartyNumber;
+	  
+	  private String language;
+	  
+
+		
+	  
+	  
+	  
+
+	public String getDocumentBase64() {
+		return DocumentBase64;
+	}
+
+	public void setDocumentBase64(String documentBase64) {
+		DocumentBase64 = documentBase64;
+	}
+
+	public KyudoToMiddleWareDocRequest(String appCod, String batchMode, String cpyCod, String externalbankingOpRef,
 			String internalbankingOpRef, String languageCod, String msgHeaderType, String msgVersionNb,
 			String operationalPosId, String structureEltId, Date treatmentDt, String treatmentTime, String userId,
 			String documentType, String documentName, String thrdPtyId, String clientId, String contractProdRef,
