@@ -91,7 +91,8 @@ public class ExternalSoapClient extends WebServiceGatewaySupport {
 	    return new ExecuteKyudoActionServiceException("SOAP fault from Execute Kyudo Action Service", sfce);
 	}
 
-  public ExecuteKyudoActionResponse executeKyudoAction(ExecuteKyudoActionInRequest request) {
+  @SuppressWarnings("unchecked")  
+public ExecuteKyudoActionResponse executeKyudoAction(ExecuteKyudoActionInRequest request) {
 
     log.info("Soap Client-  request: agentUnumber : " + request.getAgentUnumber());
     log.info("Soap Client-  request: callMode : " + request.getCallMode());
@@ -144,7 +145,12 @@ public class ExternalSoapClient extends WebServiceGatewaySupport {
     
     
     try {
-        ExecuteKyudoActionResponse response = (ExecuteKyudoActionResponse) getWebServiceTemplate()
+    	
+ //       ExecuteKyudoActionResponse response = (ExecuteKyudoActionResponse) getWebServiceTemplate()
+    	ExecuteKyudoActionResponse responseSoap = new ExecuteKyudoActionResponse();
+    	JAXBElement<ExecuteKyudoActionResponse> responseSoapJaxb = factory.createExecuteKyudoActionResponse(responseSoap);
+    	//JAXBElement<ExecuteKyudoActionResponse> responseJaxb = (JAXBElement<ExecuteKyudoActionResponse>) getWebServiceTemplate()
+    	responseSoapJaxb = (JAXBElement<ExecuteKyudoActionResponse>) getWebServiceTemplate()
                 .marshalSendAndReceive(
                 		kyudoActionExecutionSoapURI,
                 		requestWrapperJaxb,
@@ -154,6 +160,7 @@ public class ExternalSoapClient extends WebServiceGatewaySupport {
                             getMarshaller().marshal(reliabilityJaxb, header.getResult());
                             getMarshaller().marshal(contextJaxb, header.getResult());
                         });
+    	ExecuteKyudoActionResponse response = responseSoapJaxb.getValue();
 
             return response;
     	
